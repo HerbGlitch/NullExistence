@@ -2,7 +2,7 @@
 #include <archeus.hpp>
 
 namespace tbyte {
-    class Simulation : arc::State {
+    class Simulation : public arc::State {
     public:
         Simulation();
         ~Simulation();

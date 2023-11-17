@@ -13,6 +13,8 @@ add_subdirectory(lib/arc_cpp_overlay)
 add_executable(maze_challenge
     src/main.cpp
 
+    src/simulation/map.cpp
+    src/simulation/simulation.cpp
 )
 
 target_include_directories(maze_challenge

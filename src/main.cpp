@@ -1,13 +1,5 @@
 #include <archeus.hpp>
-
-class Temp : public arc::State {
-public:
-    Temp(){}
-    ~Temp(){}
-
-    void update(){}
-    void render(){}
-};
+#include "simulation/simulation.hpp"
 
 namespace arc {
     ARC_Point *init(){
@@ -18,7 +10,7 @@ namespace arc {
     State *initState(){
         //tbyte::initConfig();
         //tbyte::initKeys();
-        return new Temp();
+        return new tbyte::Simulation();
     }
 
     void deinit(){
