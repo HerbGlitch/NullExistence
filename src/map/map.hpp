@@ -1,22 +1,27 @@
 #pragma once
 
 #include <archeus.hpp>
-#include <vector>
-#include "section.hpp"
+#include "types.hpp"
 
-namespace roguespace {
+namespace tbyte {
     class Map {
     public:
-        Map(ARC_FPoint *offset);
+        Map(ARC_FPoint *offset, char *group);
         ~Map();
 
         void update();
         void render();
 
-        std::vector<world::Tile *> tilesInArea(ARC_Rect area);
+        // std::vector<world::Tile *> tilesInArea(ARC_Rect area);
 
     private:
-        std::vector<world::Section *> sections; 
+        void initTiles(char *group);
+
+        ARC_Spritesheet *sheet;
+
+        Tile       **tiles;
+        ARC_UPoint   tilesSize;
+        ARC_Rect     tileBounds;
 
         double scale;
 

@@ -1,7 +1,7 @@
 #include <archeus.hpp>
 #include "config.hpp"
 #include "keybinds.hpp"
-#include "simulation/simulation.hpp"
+#include "menu/start.hpp"
 
 namespace arc {
     ARC_Point *init(){
@@ -12,7 +12,7 @@ namespace arc {
     State *initState(){
         tbyte::initConfig();
         tbyte::initKeys();
-        return new tbyte::Simulation();
+        return new tbyte::state::Start();
     }
 
     void deinit(){

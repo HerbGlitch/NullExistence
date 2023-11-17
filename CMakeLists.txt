@@ -15,10 +15,7 @@ add_executable(maze_challenge
     src/keybinds.cpp
     src/main.cpp
 
-    src/map/charmap.cpp
     src/map/map.cpp
-    src/map/section.cpp
-    src/map/tile.cpp
 
     src/menu/start.cpp
 
