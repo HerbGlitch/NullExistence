@@ -1,4 +1,6 @@
 #include <archeus.hpp>
+#include "config.hpp"
+#include "keybinds.hpp"
 #include "simulation/simulation.hpp"
 
 namespace arc {
@@ -8,8 +10,8 @@ namespace arc {
     }
 
     State *initState(){
-        //tbyte::initConfig();
-        //tbyte::initKeys();
+        tbyte::initConfig();
+        tbyte::initKeys();
         return new tbyte::Simulation();
     }
 
