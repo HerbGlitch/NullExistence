@@ -9,7 +9,8 @@ namespace tbyte {
     } TextMap;
 
     enum class TileType {
-        COLLIDEABLE = 0x01
+        COLLIDEABLE  = 0x01,
+        PLAYER_SPAWN = 0x02,
     };
 
     typedef struct Tile {

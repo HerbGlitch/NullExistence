@@ -20,6 +20,7 @@ add_executable(maze_challenge
     src/menu/start.cpp
 
     src/simulation/simulation.cpp
+    src/simulation/mob/player.cpp
 
     src/tools/camera/camera.cpp
     src/tools/time/timer.cpp
