@@ -25,6 +25,7 @@ namespace tbyte {
         ARC_FPoint getTilePosCenterByGridPos(ARC_Point pos);
 
         ARC_Rect getMapBounds();
+        ARC_Rect getMapGridBounds();
 
     private:
         void initTiles(char *group);

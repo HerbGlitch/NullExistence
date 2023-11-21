@@ -13,6 +13,12 @@ namespace tbyte {
         void render();
 
     private:
+        void initMap(char *group);
+
+        void runPlayer();
+
+        bool getPath(ARC_Point &pos, bool **&visitedTiles);
+
         ARC_FPoint offset;
 
         Map *map;
@@ -20,5 +26,8 @@ namespace tbyte {
         mob::Player *player;
 
         bool temp;
+
+        uint32_t mapId;
+        uint32_t lastMapId;
     };
 }

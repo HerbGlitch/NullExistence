@@ -112,6 +112,15 @@ namespace tbyte {
         };
     }
 
+    ARC_Rect Map::getMapGridBounds(){
+        return {
+            0,
+            0,
+            (int32_t)tilesSize.x,
+            (int32_t)tilesSize.y
+        };
+    }
+
     void Map::initTiles(char *group){
         sheet = arc::config->get<ARC_Spritesheet>(group, "sheet");
 

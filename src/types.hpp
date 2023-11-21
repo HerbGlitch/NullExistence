@@ -11,6 +11,7 @@ namespace tbyte {
     enum class TileType {
         COLLIDEABLE  = 0x01,
         PLAYER_SPAWN = 0x02,
+        PLAYER_EXIT  = 0x04
     };
 
     typedef struct Tile {

@@ -15,9 +15,11 @@ namespace tbyte {
 
             void moveTo(ARC_FPoint pos);
 
-            void queueMovePosition(ARC_FPoint pos);
+            void queueMovePos(ARC_FPoint pos);
 
             void explode();
+
+            ARC_FPoint getPos();
 
         private:
             ARC_FPoint centerPos(ARC_FPoint pos);

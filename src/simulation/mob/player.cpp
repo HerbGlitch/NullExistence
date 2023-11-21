@@ -67,12 +67,16 @@ namespace tbyte {
             moveQueue.push(centerPos(pos));
         }
 
-        void Player::queueMovePosition(ARC_FPoint pos){
+        void Player::queueMovePos(ARC_FPoint pos){
             moveQueue.push(centerPos(pos));
         }
 
         void Player::explode(){
             explosionTimer->reset(true);
+        }
+
+        ARC_FPoint Player::getPos(){
+            return pos;
         }
 
         ARC_FPoint Player::centerPos(ARC_FPoint pos){
