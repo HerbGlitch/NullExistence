@@ -12,12 +12,18 @@ namespace tbyte {
         void update();
         void render();
 
+        void renderView();
+        void tempRenderView();
+
     private:
         void initMap(char *group);
 
         void runPlayer();
 
         bool getPath(ARC_Point &pos, bool **&visitedTiles);
+
+        ARC_View *view;
+        ARC_View *tempView;
 
         ARC_FPoint offset;
 

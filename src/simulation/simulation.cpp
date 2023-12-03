@@ -10,7 +10,18 @@ namespace tbyte {
         arc::config->load("res/config/maps.config");
         arc::config->load("res/config/player.config");
 
-        offset = { 0.0f, 0.0f };
+        ARC_Rect viewBounds = {
+            0,
+            0,
+            (int32_t)((double)arc::data->windowSize.x * 0.70),
+            arc::data->windowSize.y
+        };
+        ARC_View_Create(&view, arc::data->renderer, viewBounds);
+        offset = { (float)viewBounds.x, (float)viewBounds.y };
+
+        viewBounds.x += viewBounds.w;
+        viewBounds.w = (int32_t)((double)arc::data->windowSize.x * 0.30);
+        ARC_View_Create(&tempView, arc::data->renderer, viewBounds);
 
         mapId = 0;
         lastMapId = 2;
@@ -20,6 +31,9 @@ namespace tbyte {
     }
 
     Simulation::~Simulation(){
+        ARC_View_Destroy(tempView);
+        ARC_View_Destroy(view);
+
         delete player;
 
         delete map;
@@ -44,7 +58,7 @@ namespace tbyte {
 
         std::vector<Tile *> exitTiles = map->getTilesOfTypes((uint32_t)TileType::PLAYER_EXIT);
         for(Tile *& exitTile : exitTiles){
-            Tile *playerTile = map->getTileAt(player->getPos());
+            Tile *playerTile = map->getTileAt(player->getCenterPos());
             if(playerTile->id == exitTile->id){
                 mapId++;
                 if(mapId > lastMapId){
@@ -58,8 +72,33 @@ namespace tbyte {
     }
 
     void Simulation::render(){
+        ARC_View_Render(view, [](void *data){
+            ((Simulation *)data)->renderView();
+        }, this);
+
+        ARC_View_Render(tempView, [](void *data){
+            ((Simulation *)data)->tempRenderView();
+        }, this);
+    }
+
+    void Simulation::renderView(){
         map->render();
         player->render();
+    }
+
+    void Simulation::tempRenderView(){
+        ARC_Rect bounds = ARC_View_GetBounds(tempView);
+        ARC_Color color = { 0x3c, 0x4c, 0x5c, 0xff }; 
+
+        bounds.x = 0;
+        ARC_Rect_RenderFill(&bounds, arc::data->renderer, &color);
+
+        color = { 0x88, 0x88, 0x88, 0xff };
+        ARC_Rect_Render(&bounds, arc::data->renderer, &color);
+
+        color = { 0x22, 0x8b, 0x22, 0xff };
+        ARC_Circle add = { bounds.w - 40, bounds.h - 40, 30 };
+        ARC_Circle_RenderFill(&add, arc::data->renderer, &color);
     }
 
     void Simulation::initMap(char *group){
@@ -88,14 +127,15 @@ namespace tbyte {
         temp = false;
 
         ARC_Rect mapBounds = map->getMapBounds();
+        ARC_Rect viewBounds = ARC_View_GetBounds(view);
         offset = {
-            ((float)arc::data->windowSize.x - (float)mapBounds.w) / 2.0f,
-            ((float)arc::data->windowSize.y - (float)mapBounds.h) / 2.0f
+            (((float)viewBounds.w - (float)mapBounds.w) / 2.0f) - ((float)viewBounds.x / 2.0f),
+            (((float)viewBounds.h - (float)mapBounds.h) / 2.0f) - ((float)viewBounds.y / 2.0f)
         };
     }
 
     void Simulation::runPlayer(){
-        Tile *playerTile = map->getTileAt(player->getPos());
+        Tile *playerTile = map->getTileAt(player->getCenterPos());
         ARC_Point nextPos = map->getTileGridPosById(playerTile->id);
         ARC_Rect gridBounds = map->getMapGridBounds();
 

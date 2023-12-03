@@ -5,6 +5,11 @@
 
 namespace tbyte {
     namespace mob {
+        enum class PlayerState {
+            IDLE,
+            MOVING
+        };
+
         class Player {
         public:
             Player(ARC_FPoint *offset, char *spriteName, ARC_FPoint spawn, double moveTime);
@@ -20,13 +25,18 @@ namespace tbyte {
             void explode();
 
             ARC_FPoint getPos();
+            ARC_FPoint getCenterPos();
 
         private:
             ARC_FPoint centerPos(ARC_FPoint pos);
 
+            void animateBody();
             void animateExplosion();
 
             ARC_Sprite *sprite;
+            ARC_Sprite *walk;
+            tools::Timer *bodyTimer;
+
             ARC_Sprite *explosion;
             tools::Timer *explosionTimer;
 
@@ -39,6 +49,8 @@ namespace tbyte {
             std::queue<ARC_FPoint> moveQueue;
             double moveTime;
             float lerpPos;
+
+            PlayerState playerState;
         };
     }
 }
